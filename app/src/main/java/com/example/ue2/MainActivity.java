@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         BottomNavigationView bottomNavigationView=findViewById(R.id.nav_view1);
 
         // Set Home selected
-        bottomNavigationView.setSelectedItemId(R.id.home);
+        bottomNavigationView.setSelectedItemId(R.id.nav_home);
 
         // Perform item selected listener
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -155,7 +155,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     // <OnNavItemSelectedSnippet>
-    @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         // Load the fragment that corresponds to the selected item
         switch (menuItem.getItemId()) {
