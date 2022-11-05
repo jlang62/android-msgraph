@@ -66,30 +66,30 @@ public class CalendarFragment extends Fragment {
         // Get midnight of the first day of the week (assumed Sunday)
         // in the user's timezone, then convert to UTC
         ZonedDateTime startOfWeek = ZonedDateTime.now(tzId)
-            .with(TemporalAdjusters.previousOrSame(DayOfWeek.SUNDAY))
-            .truncatedTo(ChronoUnit.DAYS)
-            .withZoneSameInstant(ZoneId.of("UTC"));
+                .with(TemporalAdjusters.previousOrSame(DayOfWeek.SUNDAY))
+                .truncatedTo(ChronoUnit.DAYS)
+                .withZoneSameInstant(ZoneId.of("UTC"));
 
         // Add 7 days to get the end of the week
         ZonedDateTime endOfWeek = startOfWeek.plusDays(7);
 
         // Get the user's events
         graphHelper
-            .getCalendarView(startOfWeek, endOfWeek, mTimeZone)
-            .thenAccept(eventList -> {
-                mEventList = eventList;
+                .getCalendarView(startOfWeek, endOfWeek, mTimeZone)
+                .thenAccept(eventList -> {
+                    mEventList = eventList;
 
-                addEventsToList();
-                hideProgressBar();
-            })
-            .exceptionally(exception -> {
-                hideProgressBar();
-                Log.e("GRAPH", "Error getting events", exception);
-                Snackbar.make(getView(),
-                    exception.getMessage(),
-                    BaseTransientBottomBar.LENGTH_LONG).show();
-                return null;
-            });
+                    addEventsToList();
+                    hideProgressBar();
+                })
+                .exceptionally(exception -> {
+                    hideProgressBar();
+                    Log.e("GRAPH", "Error getting events", exception);
+                    Snackbar.make(getView(),
+                            exception.getMessage(),
+                            BaseTransientBottomBar.LENGTH_LONG).show();
+                    return null;
+                });
 
         return view;
     }
@@ -103,7 +103,7 @@ public class CalendarFragment extends Fragment {
                 ListView eventListView = getView().findViewById(R.id.eventlist);
 
                 EventListAdapter listAdapter = new EventListAdapter(getActivity(),
-                    R.layout.event_list_item, mEventList);
+                        R.layout.event_list_item, mEventList);
 
                 eventListView.setAdapter(listAdapter);
             }
@@ -117,9 +117,9 @@ public class CalendarFragment extends Fragment {
             @Override
             public void run() {
                 getActivity().findViewById(R.id.progressbar)
-                    .setVisibility(View.VISIBLE);
+                        .setVisibility(View.VISIBLE);
                 getActivity().findViewById(R.id.fragment_container)
-                    .setVisibility(View.GONE);
+                        .setVisibility(View.GONE);
             }
         });
     }
@@ -129,9 +129,9 @@ public class CalendarFragment extends Fragment {
             @Override
             public void run() {
                 getActivity().findViewById(R.id.progressbar)
-                    .setVisibility(View.GONE);
+                        .setVisibility(View.GONE);
                 getActivity().findViewById(R.id.fragment_container)
-                    .setVisibility(View.VISIBLE);
+                        .setVisibility(View.VISIBLE);
             }
         });
     }

@@ -75,11 +75,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     case R.id.nav_create_event:
                         openNewEventFragment(mUserTimeZone);
                         break;
-                    case R.id.nav_signin:
-                        signIn();
-                        break;
-                    case R.id.nav_signout:
-                        signOut();
+                    case R.id.nav_dashboard:
+                        openDashboardFragment(mUserName);
                         break;
                 }
                 return false;
@@ -161,12 +158,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_home:
                 openHomeFragment(mUserName);
                 break;
-            case R.id.nav_calendar:
-                openCalendarFragment(mUserTimeZone);
-                break;
-            case R.id.nav_create_event:
-                openNewEventFragment(mUserTimeZone);
-                break;
             case R.id.nav_signin:
                 signIn();
                 break;
@@ -210,15 +201,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private void setSignedInState(boolean isSignedIn) {
         mIsSignedIn = isSignedIn;
 
-        mNavigationView.getMenu().clear();
-        mNavigationView.inflateMenu(R.menu.drawer_menu);
-
         Menu menu = mNavigationView.getMenu();
 
         mNavigationView.getMenu().clear();
-        mNavigationView.inflateMenu(R.menu.menu_navigation);
 
-        Menu menuBtm = mNavigationView.getMenu();
+        mNavigationView.inflateMenu(R.menu.drawer_menu);
 
         // Hide/show the Sign in, Calendar, and Sign Out buttons
         if (isSignedIn) {
@@ -227,6 +214,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             menu.removeItem(R.id.nav_home);
             menu.removeItem(R.id.nav_calendar);
             menu.removeItem(R.id.nav_create_event);
+            menu.removeItem(R.id.nav_dashboard);
             menu.removeItem(R.id.nav_signout);
         }
 
@@ -272,6 +260,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             .replace(R.id.fragment_container, fragment)
             .commit();
         mNavigationView.setCheckedItem(R.id.nav_create_event);
+    }
+
+    public void openDashboardFragment(String userName) {
+        ContactFragment fragment = ContactFragment.createInstance(userName);
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, fragment)
+                .commit();
+        mNavigationView.setCheckedItem(R.id.nav_dashboard);
     }
 
     // <SignInAndOutSnippet>
